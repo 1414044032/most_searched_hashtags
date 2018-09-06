@@ -66,11 +66,11 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   #'tongfangpachong.pipelines.TongfangpachongPipeline': 300,
-    #'tongfangpachong.pipelines.MysqlPipline':3,
-    'tongfangpachong.pipelines.MysqlTwistedPipline':100,
-}
+# ITEM_PIPELINES = {
+#    #'tongfangpachong.pipelines.TongfangpachongPipeline': 300,
+#     #'tongfangpachong.pipelines.MysqlPipline':3,
+#     'tongfangpachong.pipelines.MysqlTwistedPipline':100,
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html

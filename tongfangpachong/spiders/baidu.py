@@ -13,7 +13,11 @@ class baiduSpider(scrapy.Spider):
     name = 'baidu'
     #allowed_domains = ['http://top.baidu.com']
     start_urls = ['http://top.baidu.com/category?c=513&fr=topbuzz_b1']
-
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'tongfangpachong.pipelines.MysqlTwistedPipline':100,
+        }
+    }
     def parse(self, response):
         top_list = response.xpath('//div[@class="hblock"]/ul/li/a')
         for i in range(1,len(top_list)):
@@ -42,7 +46,7 @@ class baiduSpider(scrapy.Spider):
                 top_keyword_type = top_keyword.xpath('./td[@class="keyword"]/span/@class').extract_first("")
                 #  趋势
                 top_keyword_trend = top_keyword.xpath('./td[@class="last"]/span/@class').extract_first("")
-                hot_search_news_item['message_type'] = response.meta.get("top_name","")
+                hot_search_news_item['origin_type'] = response.meta.get("top_name","")
                 hot_search_news_item['title'] = top_keyword_title
                 hot_search_news_item['desc'] = ""
                 hot_search_news_item['news_origin'] = "百度热搜"
@@ -50,6 +54,8 @@ class baiduSpider(scrapy.Spider):
                 hot_search_news_item['message_url'] = top_keyword_url
                 hot_search_news_item['ranking'] = top_keyword_rank
                 hot_search_news_item['search_index'] = top_keyword_pop
+                hot_search_news_item['message_type'] = top_keyword_type
+                hot_search_news_item['message_trend'] = top_keyword_trend
                 yield hot_search_news_item
 
 

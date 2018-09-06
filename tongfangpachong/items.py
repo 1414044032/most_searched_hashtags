@@ -58,14 +58,31 @@ class hot_search_newsItem(scrapy.Item):
     search_index = scrapy.Field()
     create_time = scrapy.Field()
     news_origin = scrapy.Field()
+    origin_type = scrapy.Field()
     message_type = scrapy.Field()
+    message_trend = scrapy.Field()
     message_url = scrapy.Field()
     ranking = scrapy.Field()
     def get_insert_sql(self):
         insert_sql = """
-                        insert into t_public_opinion_hot_search_news(title,news_desc, search_index,create_time,news_origin, message_type, message_url, ranking)
-                        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+                        insert into t_public_opinion_hot_search_news(title,news_desc, search_index,create_time,news_origin,origin_type, message_type, message_url,message_trend, ranking)
+                        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                          """
         parms=(self["title"], self["desc"], self["search_index"], self["create_time"], self["news_origin"],
-               self["message_type"], self["message_url"], self["ranking"])
+               self["origin_type"],self["message_type"], self["message_url"], self["message_trend"], self["ranking"])
+        return insert_sql,parms
+
+class front_news(scrapy.Item):
+    news_source = scrapy.Field()
+    news_module = scrapy.Field()
+    title = scrapy.Field()
+    url = scrapy.Field()
+    happend_time = scrapy.Field()
+    create_time = scrapy.Field()
+    def get_insert_sql(self):
+        insert_sql = """
+                        insert into t_public_opinion_front_news(news_source,news_module,title,url,happend_time,create_time)
+                        VALUES (%s,%s,%s,%s,%s,%s)
+                         """
+        parms=(self["news_source"],self["news_module"],self["title"],self["url"],self["happend_time"],self["create_time"])
         return insert_sql,parms
