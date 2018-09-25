@@ -9,15 +9,15 @@ except:
 from tongfangpachong.items import front_news
 import re
 
-class baidunewsSpider(scrapy.Spider):
+class baiduSpider(scrapy.Spider):
     name = 'baidunews'
     unittime = str(int(time.time()))
     start_urls = ['http://news.baidu.com/widget?id=LocalNews&loc=4504&ajax=json&t=%s'%unittime]
-    # custom_settings = {
-    #     'ITEM_PIPELINES': {
-    #         'tongfangpachong.pipelines.MysqlTwistedPipline':100,
-    #     }
-    # }
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'tongfangpachong.pipelines.MysqlTwistedPipline':100,
+        }
+    }
 
 
     def parse(self, response):

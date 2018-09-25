@@ -12,18 +12,15 @@ class TongfangpachongPipeline(object):
     def process_item(self, item, spider):
         return item
 
-# 清表
-class MysqlPipline(object):
-    def __init__(self):
-        self.conn=MySQLdb.connect('192.168.10.18','root','root','meltmedia',charset="utf8",use_unicode=True)
-        self.cursor=self.conn.cursor()
-        number = self.cursor.execute("select id from t_public_opinion_hot_search_news")
-        if number >2000:
-            print("数据库数据超过了2000条，清空数据")
-            self.cursor.execute("truncate table t_public_opinion_hot_search_news")
-        #self.cursor.execute("truncate table areabaidu")
-    def process_item(self, item, spider):
-        return item
+#清表
+# class MysqlPipline(object):
+#     def __init__(self):
+#         self.conn=MySQLdb.connect('192.168.10.18','root','root','meltmedia',charset="utf8",use_unicode=True)
+#         # self.cursor=self.conn.cursor()
+#         #self.cursor.execute("truncate table toplist")
+#         # self.cursor.execute("truncate table areabaidu")
+#     def process_item(self, item, spider):
+#         return item
 
 # 插入
 class MysqlTwistedPipline(object):

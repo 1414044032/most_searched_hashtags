@@ -28,7 +28,7 @@ FEED_EXPORT_ENCODING = "utf8"
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 5
+#DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -66,11 +66,11 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   #'tongfangpachong.pipelines.TongfangpachongPipeline': 300,
-    'tongfangpachong.pipelines.MysqlPipline':1,
-    'tongfangpachong.pipelines.MysqlTwistedPipline':100,
-}
+# ITEM_PIPELINES = {
+#    #'tongfangpachong.pipelines.TongfangpachongPipeline': 300,
+#     #'tongfangpachong.pipelines.MysqlPipline':3,
+#     'tongfangpachong.pipelines.MysqlTwistedPipline':100,
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -98,7 +98,4 @@ MYSQL_HOST="192.168.10.18"
 MYSQL_DBNAME="meltmedia"
 MYSQL_USER="root"
 MYSQL_PASSWORD="root"
-COMMANDS_MODULE = 'tongfangpachong.commands'
-
-LOG_FILE = "hotSpider.log"
-LOG_LEVEL = 'INFO'
+#COMMANDS_MODULE = 'tongfangpachong.commands'

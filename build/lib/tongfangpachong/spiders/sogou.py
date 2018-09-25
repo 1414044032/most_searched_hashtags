@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from scrapy.http import Request
 from tongfangpachong.items import hot_search_newsItem
 import datetime
 try:
@@ -8,7 +7,7 @@ try:
 except:
     import urlparse as parse
 
-class SogouSpider(scrapy.Spider):
+class WeoboSpider(scrapy.Spider):
     name = 'sogou'
     # allowed_domains = ['http://top.sogou.com']
     start_urls = ['http://top.sogou.com/hot/shishi_1.html',
@@ -17,17 +16,11 @@ class SogouSpider(scrapy.Spider):
                   'http://top.sogou.com/hot/sevendsnews_1.html',
                   'http://top.sogou.com/hot/sevendsnews_2.html',
                   'http://top.sogou.com/hot/sevendsnews_3.html']
-    # custom_settings = {
-    #     'ITEM_PIPELINES': {
-    #         'tongfangpachong.pipelines.MysqlTwistedPipline': 100,
-    #     }
-    # }
-    def start_requests(self):
-        print("检索搜狗热搜")
-        create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        for i in self.start_urls:
-            yield Request(url=i,meta={"create_time":create_time})
-
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'tongfangpachong.pipelines.MysqlTwistedPipline': 100,
+        }
+    }
     def parse(self, response):
         news_list = response.xpath('//ul[@class="pub-list"]/li')
         origin_type = response.xpath('//div[@class="snb"]/a[@class="cur"]/text()').extract_first("")
@@ -43,7 +36,7 @@ class SogouSpider(scrapy.Spider):
             hot_search_news_item['title'] = title
             hot_search_news_item['desc'] = news_desc
             hot_search_news_item['news_origin'] = "搜狗热搜"
-            hot_search_news_item['create_time'] = response.meta.get("create_time")
+            hot_search_news_item['create_time'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             hot_search_news_item['message_url'] = message_url
             hot_search_news_item['ranking'] = ranking
             hot_search_news_item['origin_type'] = origin_type

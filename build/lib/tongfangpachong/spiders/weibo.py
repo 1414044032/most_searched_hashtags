@@ -4,17 +4,16 @@ from tongfangpachong.items import hot_search_newsItem
 import datetime
 
 class WeoboSpider(scrapy.Spider):
-    print("检索微博热搜")
     name = 'weibo'
     # allowed_domains = ['http://s.weibo.com']
     start_urls = ['http://s.weibo.com/top/summary?cate=homepage']
-    # custom_settings = {
-    #     'ITEM_PIPELINES': {
-    #         'tongfangpachong.pipelines.MysqlTwistedPipline': 100,
-    #     }
-    # }
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'tongfangpachong.pipelines.MysqlTwistedPipline': 100,
+        }
+    }
     def parse(self, response):
-
+        print("检索微博热搜")
         top_list = response.xpath('//tr[@action-type="hover"]')
         for top in top_list:
             hot_search_news_item = hot_search_newsItem()
@@ -23,8 +22,6 @@ class WeoboSpider(scrapy.Spider):
             top_keyword = top.xpath('.//p[@class="star_name"]/a/text()').extract_first("")
             top_keyword_url = top.xpath('.//p[@class="star_name"]/a/@href').extract_first("")
             top_keyword_type = top.xpath('.//p[@class="star_name"]/i/text()').extract_first("")
-            if top_keyword_type == "荐":
-                top_keyword_url = top.xpath('.//p[@class="star_name"]/a/@href_to').extract_first("")
             top_keyword_pop = top.xpath('.//p[@class="star_num"]/span/text()').extract_first("")
             hot_search_news_item['title'] = top_keyword
             hot_search_news_item['desc'] = ""
@@ -34,7 +31,7 @@ class WeoboSpider(scrapy.Spider):
             hot_search_news_item['origin_type'] = "热搜榜"
             hot_search_news_item['message_type'] = top_keyword_type
             hot_search_news_item['message_trend'] = ""
-            hot_search_news_item['message_url'] = "http://s.weibo.com"+top_keyword_url
+            hot_search_news_item['message_url'] = top_keyword_url
             hot_search_news_item['ranking'] = top_keyword_rank
 
 

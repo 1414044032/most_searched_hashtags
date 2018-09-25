@@ -13,7 +13,7 @@ def start_spider():
     task = subprocess.Popen("scrapy crawlall")
     task.wait()
     print("success")
-    schedule.enter(300, 0, start_spider)
+    schedule.enter(600, 0, start_spider)
 
 
 if __name__ =="__main__":

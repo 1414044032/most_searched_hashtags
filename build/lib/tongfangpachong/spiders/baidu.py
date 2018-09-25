@@ -10,24 +10,24 @@ from tongfangpachong.items import hot_search_newsItem
 import re
 
 class baiduSpider(scrapy.Spider):
-    print("检索百度热搜")
     name = 'baidu'
     #allowed_domains = ['http://top.baidu.com']
     start_urls = ['http://top.baidu.com/category?c=513&fr=topbuzz_b1']
-    # custom_settings = {
-    #     'ITEM_PIPELINES': {
-    #         'tongfangpachong.pipelines.MysqlTwistedPipline':100,
-    #     }
-    # }
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'tongfangpachong.pipelines.MysqlTwistedPipline':100,
+        }
+    }
     def parse(self, response):
         top_list = response.xpath('//div[@class="hblock"]/ul/li/a')
         for i in range(1,len(top_list)):
             top_name = top_list[i].xpath('./text()').extract_first("")
             top_url = re.sub('\s','',top_list[i].xpath('./@href').extract_first(""))[1:]
-            #print(parse.urljoin(response.url,top_url))
+            print(parse.urljoin(response.url,top_url))
             yield Request(url=parse.urljoin(response.url,top_url),meta={"top_name":top_name},callback=self.parse_toplist,dont_filter=True)
 
     def parse_toplist(self, response):
+        print("检索百度热搜")
         top_keywords_list = response.xpath('//table[@class="list-table"]/tr')
         for top_keyword in top_keywords_list:
             hot_search_news_item = hot_search_newsItem()
@@ -46,15 +46,6 @@ class baiduSpider(scrapy.Spider):
                 top_keyword_type = top_keyword.xpath('./td[@class="keyword"]/span/@class').extract_first("")
                 #  趋势
                 top_keyword_trend = top_keyword.xpath('./td[@class="last"]/span/@class').extract_first("")
-                if top_keyword_trend:
-                    if top_keyword_trend == "icon-fall":
-                        top_keyword_trend = "down"
-                    elif top_keyword_trend == "icon-fair":
-                        top_keyword_trend = "fair"
-                    else:
-                        top_keyword_trend ="up"
-                if top_keyword_type:
-                    top_keyword_type = "新"
                 hot_search_news_item['origin_type'] = response.meta.get("top_name","")
                 hot_search_news_item['title'] = top_keyword_title
                 hot_search_news_item['desc'] = ""
