@@ -31,7 +31,7 @@ class peopleSpider(scrapy.Spider):
         for new in news:
             newsitem =front_news()
             title = new.xpath('./a/text()').extract_first("")
-            url = "henan.people.com.cn"+ new.xpath('./a/@href').extract_first("")
+            url = "http://henan.people.com.cn"+ new.xpath('./a/@href').extract_first("")
             happend_time = new.xpath('./em/text()').extract_first("")
             # create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             newsitem["news_source"] = "人民网"

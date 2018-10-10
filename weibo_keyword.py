@@ -8,8 +8,9 @@ import time
 import datetime
 import re
 
+from SpiderStatus import SpiderStatus
 
-class weibosearch():
+class weibosearch:
     # 热门
     def __init__(self):
         self.myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -122,6 +123,4 @@ class weibosearch():
             print("评论爬取完成")
 
 if __name__ == "__main__":
-    # weibosearch().keyword_search("许昌")
-    weibosearch().mongo2mysql()
-    # weibosearch().get_all_comments()
+    weibosearch().keyword_search("范冰冰")

@@ -9,7 +9,8 @@ from scrapy import signals
 from selenium import webdriver
 from scrapy.http import HtmlResponse
 import time
-
+from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
+import random
 
 class TongfangpachongSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -121,3 +122,22 @@ class JSPageMIddleware(object):
             return HtmlResponse(url=driver.current_url, body= content, encoding="utf-8",request=request)
         else:
             return None
+
+
+class MyUserAgentMiddleware(UserAgentMiddleware):
+    '''
+    设置User-Agent
+    '''
+
+    def __init__(self, user_agent):
+        self.user_agent = user_agent
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            user_agent=crawler.settings.get('MY_USER_AGENT')
+        )
+
+    def process_request(self, request, spider):
+        agent = random.choice(self.user_agent)
+        request.headers['User-Agent'] = agent

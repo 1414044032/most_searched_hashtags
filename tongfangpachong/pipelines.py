@@ -14,14 +14,19 @@ class TongfangpachongPipeline(object):
 
 # 清表
 class MysqlPipline(object):
-    def __init__(self):
-        self.conn=MySQLdb.connect('192.168.10.18','root','root','meltmedia',charset="utf8",use_unicode=True)
+    def __init__(self,host):
+        self.conn=MySQLdb.connect(host,'root','root','meltmedia',charset="utf8",use_unicode=True)
         self.cursor=self.conn.cursor()
         number = self.cursor.execute("select id from t_public_opinion_hot_search_news")
         if number >2000:
             print("数据库数据超过了2000条，清空数据")
             self.cursor.execute("truncate table t_public_opinion_hot_search_news")
+            self.cursor.execute("truncate table t_public_opinion_front_news")
         #self.cursor.execute("truncate table areabaidu")
+    @classmethod
+    def from_settings(cls, setting):
+        host=setting["MYSQL_HOST"]
+        return cls(host)
     def process_item(self, item, spider):
         return item
 
