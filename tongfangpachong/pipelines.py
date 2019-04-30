@@ -15,7 +15,7 @@ class TongfangpachongPipeline(object):
 # 清表
 class MysqlPipline(object):
     def __init__(self,host):
-        self.conn=MySQLdb.connect(host,'root','root','meltmedia',charset="utf8",use_unicode=True)
+        self.conn=MySQLdb.connect(host,'root','lxsoft600100@rhmt2019','meltmedia',port = 6603, charset="utf8",use_unicode=True)
         self.cursor=self.conn.cursor()
         number = self.cursor.execute("select id from t_public_opinion_hot_search_news")
         if number >2000:
@@ -42,6 +42,7 @@ class MysqlTwistedPipline(object):
                 user=setting["MYSQL_USER"],
                 passwd=setting["MYSQL_PASSWORD"],
                 charset='utf8',
+                port=6603,
                 cursorclass=MySQLdb.cursors.DictCursor,
                 use_unicode=True,
         )

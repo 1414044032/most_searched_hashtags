@@ -61,9 +61,10 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-#}
+EXTENSIONS = {
+   'tongfangpachong.diyclass.SpiderOpenCloseLogging': 100,
+}
+MY_EXTENSION = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
@@ -95,14 +96,14 @@ AUTOTHROTTLE_ENABLED = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-MYSQL_HOST="192.168.10.18"
+MYSQL_HOST="119.254.155.123"
 MYSQL_DBNAME="meltmedia"
 MYSQL_USER="root"
-MYSQL_PASSWORD="root"
+MYSQL_PASSWORD="lxsoft600100@rhmt2019"
 COMMANDS_MODULE = 'tongfangpachong.commands'
 
-LOG_FILE = "hotSpider.log"
-LOG_LEVEL = 'INFO'
+# LOG_FILE = "hotSpider.log"
+# LOG_LEVEL = 'INFO'
 
 MY_USER_AGENT = [
     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",

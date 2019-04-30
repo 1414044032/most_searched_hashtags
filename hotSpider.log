@@ -1185,3 +1185,6 @@
  'scheduler/enqueued/memory': 1,
  'start_time': datetime.datetime(2018, 10, 8, 6, 37, 50, 950528)}
 2018-10-08 14:37:51 [scrapy.core.engine] INFO: Spider closed (finished)
+2019-03-01 11:14:20 [scrapy.utils.log] INFO: Scrapy 1.5.1 started (bot: tongfangpachong)
+2019-03-01 11:14:20 [scrapy.utils.log] INFO: Versions: lxml 4.1.1.0, libxml2 2.9.5, cssselect 1.0.3, parsel 1.5.0, w3lib 1.19.0, Twisted 18.7.0, Python 3.6.5 (v3.6.5:f59c0932b4, Mar 28 2018, 17:00:18) [MSC v.1900 64 bit (AMD64)], pyOpenSSL 18.0.0 (OpenSSL 1.1.0h  27 Mar 2018), cryptography 2.3, Platform Windows-10-10.0.17134-SP0
+2019-03-01 11:14:20 [scrapy.crawler] INFO: Overridden settings: {'AUTOTHROTTLE_ENABLED': True, 'BOT_NAME': 'tongfangpachong', 'COMMANDS_MODULE': 'tongfangpachong.commands', 'DOWNLOAD_DELAY': 5, 'FEED_EXPORT_ENCODING': 'utf8', 'LOG_FILE': 'hotSpider.log', 'LOG_LEVEL': 'INFO', 'NEWSPIDER_MODULE': 'tongfangpachong.spiders', 'SPIDER_MODULES': ['tongfangpachong.spiders']}

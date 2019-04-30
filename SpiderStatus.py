@@ -9,7 +9,7 @@ import configparser
 class SpiderStatus:
 
     def __init__(self):
-        self.conn = MySQLdb.connect(host=getsetting(), user="root", passwd="root", db="meltmedia", charset="utf8")
+        self.conn = MySQLdb.connect(host=getsetting(), user="root", passwd="lxsoft600100@rhmt2019", db="meltmedia", port=6603,charset="utf8")
         self.cursor = self.conn.cursor()
 
     def getspider(self,name):
@@ -50,7 +50,7 @@ def getsetting():
     if len(result)== 1:
         return result[0]
     else:
-        return "192.168.10.18"
+        return "119.254.155.123"
 
 if __name__ == "__main__":
     pass
