@@ -61,10 +61,10 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
-EXTENSIONS = {
-   'tongfangpachong.diyclass.SpiderOpenCloseLogging': 100,
-}
-MY_EXTENSION = True
+# EXTENSIONS = {
+#    'tongfangpachong.diyclass.SpiderOpenCloseLogging': 100,
+# }
+# MY_EXTENSION = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
