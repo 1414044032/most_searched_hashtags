@@ -4,12 +4,16 @@ import datetime
 import os
 import re
 import configparser
-
+import traceback
 
 class SpiderStatus:
 
     def __init__(self):
-        self.conn = MySQLdb.connect(host=getsetting(), user="root", passwd="lxsoft600100@rhmt2019", db="meltmedia", port=6603,charset="utf8")
+        # [host, dbname, port, user, password]
+        # 配置list
+        set_list = getsetting()
+        self.conn = MySQLdb.connect(host=set_list[0], user=set_list[3], passwd=set_list[4], db=set_list[1],
+                                    port=set_list[2], charset="utf8")
         self.cursor = self.conn.cursor()
 
     def getspider(self,name):
@@ -46,11 +50,23 @@ def getsetting():
     setfile = os.path.join(dir,setfile)
     with open(setfile,"r") as f:
         setting = f.read()
-    result = re.findall(r"MYSQL_HOST=\"(.*)\"",setting)
-    if len(result)== 1:
-        return result[0]
-    else:
-        return "119.254.155.123"
+    #     MYSQL_HOST="192.168.10.18"
+    # MYSQL_DBNAME="meltmedia"
+    # MYSQL_USER="root"
+    # MYSQL_port=3306
+    # MYSQL_PASSWORD="root"
+    try:
+        host = re.findall(r"MYSQL_HOST=\"(.*)\"",setting)[0]
+        dbname = re.findall(r"MYSQL_DBNAME=\"(.*)\"",setting)[0]
+        port = int(re.findall(r"MYSQL_PORT=(.*)",setting)[0])
+        user = re.findall(r"MYSQL_USER=\"(.*)\"",setting)[0]
+        password = re.findall(r"MYSQL_PASSWORD=\"(.*)\"",setting)[0]
+        return [host, dbname, port, user, password]
+    except Exception as e:
+        traceback.print_exception()
+        print(e)
+        print("检查配置文件mysql配置")
+
 
 if __name__ == "__main__":
     pass

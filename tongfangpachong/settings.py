@@ -96,10 +96,11 @@ AUTOTHROTTLE_ENABLED = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-MYSQL_HOST="119.254.155.123"
+MYSQL_HOST="192.168.10.18"
 MYSQL_DBNAME="meltmedia"
 MYSQL_USER="root"
-MYSQL_PASSWORD="lxsoft600100@rhmt2019"
+MYSQL_PORT=3306
+MYSQL_PASSWORD="root"
 COMMANDS_MODULE = 'tongfangpachong.commands'
 
 # LOG_FILE = "hotSpider.log"
